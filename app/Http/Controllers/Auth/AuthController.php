@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -19,7 +22,6 @@ class AuthController extends Controller
                 'prenom' => 'required|string',
                 'password' => 'required',
                 'email' => 'required|email',
-                'date_naissance' => 'required|date',
             ]);
 
             if ($validator->fails()) {
@@ -39,7 +41,6 @@ class AuthController extends Controller
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
                 'role_id' => $role->id,
-                'date_naissance' => $validated['date_naissance'],
             ]);
 
             // Si la demande d'authentification est bonne, cela renvoie un token que l'on stocke dans la variable token sinon la variable sera false
@@ -81,7 +82,6 @@ class AuthController extends Controller
 
         return response()->json([
             'email' => $user->email,
-            'date_naissance' => $user->date_naissance,
             'prenom' => $user->prenom,
             'nom' => $user->nom,
             'id' => $user->id,

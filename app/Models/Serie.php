@@ -15,4 +15,7 @@ class Serie extends Model
     public function serie_categorie() {
         return $this->belongsToMany(Categorie::class, 'serie_categorie');
     }
+    public function acteur_serie() {
+        return $this->belongsToMany(Acteur::class, 'acteur_serie');
+    }
 }
