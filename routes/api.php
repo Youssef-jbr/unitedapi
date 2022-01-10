@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/');
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('/register', [AuthenticationController::class, 'register'])->name('auth.register');
-    Route::post('/login', [AuthenticationController::class, 'login'])->name('auth.login');
-    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('auth.logout')->middleware('auth');
-    Route::get('/me', [AuthenticationController::class, 'me'])->name('auth.me')->middleware('auth');
+    Route::post('/register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+    Route::get('/me', [AuthController::class, 'me'])->name('auth.me')->middleware('auth');
 });
